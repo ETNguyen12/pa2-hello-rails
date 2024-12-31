@@ -8,3 +8,34 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+th.sorted-asc {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+th.sorted-desc {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.btn {
+    margin-right: 5px;
+}
+  
