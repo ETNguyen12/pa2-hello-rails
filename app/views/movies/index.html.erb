@@ -6,10 +6,16 @@
 
 <div id="movies">
   <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <%= render movie %>
+          <p>
+            <%= link_to "Show this movie", movie, class: "btn btn-primary" %>
+          </p>
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>
 
