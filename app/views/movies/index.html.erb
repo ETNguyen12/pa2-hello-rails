@@ -5,32 +5,32 @@
     <h1>Movies</h1>
   </div>
   <div class="header-right">
-    <%= link_to "+", new_movie_path, class: "add-movie-btn" %>
+    <%= link_to "+", new_movie_path(sort: @sort, direction: @direction), class: "add-movie-btn" %>
   </div>
 </div>
 
 <table class="movies-table">
   <thead>
     <tr>
-      <th class="<%= 'highlight-column' if highlight_column?('title') %>">
-        Title
-        <%= link_to sort_arrow('title'),
-            movies_path(sort: 'title', direction: next_sort_direction('title')),
-            class: "sort-button" %>
+      <th class="<%= 'highlight-column' if @sort == 'title' && @direction.present? %>">
+        <%= link_to movies_path(sort: 'title', direction: next_direction('title')),
+                    class: "sort-button" do %>
+          Title <%= sort_indicator('title') %>
+        <% end %>
       </th>
       
-      <th class="<%= 'highlight-column' if highlight_column?('rating') %>">
-        Rating
-        <%= link_to sort_arrow('rating'),
-                    movies_path(sort: 'rating', direction: next_sort_direction('rating')),
-                    class: "sort-button" %>
+      <th class="<%= 'highlight-column' if @sort == 'rating' && @direction.present? %>">
+        <%= link_to movies_path(sort: 'rating', direction: next_direction('rating')),
+                    class: "sort-button" do %>
+          Rating <%= sort_indicator('rating') %>
+        <% end %>
       </th>
       
-      <th class="<%= 'highlight-column' if highlight_column?('release_date') %>">
-        Release Date
-        <%= link_to sort_arrow('release_date'),
-                    movies_path(sort: 'release_date', direction: next_sort_direction('release_date')),
-                    class: "sort-button" %>
+      <th class="<%= 'highlight-column' if @sort == 'release_date' && @direction.present? %>">
+        <%= link_to movies_path(sort: 'release_date', direction: next_direction('release_date')),
+                    class: "sort-button" do %>
+          Release Date <%= sort_indicator('release_date') %>
+        <% end %>
       </th>
       
       <th>Actions</th>
@@ -39,21 +39,21 @@
   <tbody>
     <% @movies.each do |movie| %>
       <tr>
-        <td class="<%= 'highlight-column' if highlight_column?('title') %>">
+        <td class="<%= 'highlight-column' if @sort == 'title' && @direction.present? %>">
           <%= movie.title %>
         </td>
-        <td class="<%= 'highlight-column' if highlight_column?('rating') %>">
+        <td class="<%= 'highlight-column' if @sort == 'rating' && @direction.present? %>">
           <%= movie.rating %>
         </td>
-        <td class="<%= 'highlight-column' if highlight_column?('release_date') %>">
+        <td class="<%= 'highlight-column' if @sort == 'release_date' && @direction.present? %>">
           <%= movie.release_date.strftime("%b %d, %Y") %>
         </td>
         <td>
-          <%= link_to "Show", movie_path(movie, sort: session[:sort], direction: session[:direction]),
+          <%= link_to "Show", movie_path(movie, sort: @sort, direction: @direction),
                 class: "btn btn-primary" %>
-          <%= link_to "Edit", edit_movie_path(movie, sort: session[:sort], direction: session[:direction]),
+          <%= link_to "Edit", edit_movie_path(movie, sort: @sort, direction: @direction),
                 class: "btn btn-secondary" %>
-          <%= link_to "Delete", movie_path(movie, sort: session[:sort], direction: session[:direction]),
+          <%= link_to "Delete", movie_path(movie, sort: @sort, direction: @direction),
                 method: :delete, data: { confirm: "Are you sure?" },
                 class: "btn btn-danger" %>
         </td>

@@ -4,7 +4,7 @@
   <h1>Editing <%= @movie.title %></h1>
   
   <%= link_to "Cancel", 
-              movies_path(sort: session[:sort], direction: session[:direction]), 
+              movies_path(sort: @sort, direction: @direction), 
               class: "btn btn-danger" %>
 </div>
 

@@ -4,7 +4,7 @@
   <h1><%= @movie.title %></h1>
   <!-- Preserve current sort/direction when going "Home" -->
   <%= link_to "Home",
-              movies_path(sort: session[:sort], direction: session[:direction]),
+              movies_path(sort: @sort, direction: @direction),
               class: "btn btn-primary" %>
 </div>
 
@@ -23,12 +23,12 @@
 <div class="navigation-links">
   <!-- Preserve current sort/direction when editing -->
   <%= link_to "Edit",
-              edit_movie_path(@movie, sort: session[:sort], direction: session[:direction]),
+              edit_movie_path(@movie, sort: @sort, direction: @direction),
               class: "btn btn-primary" %>
 
   <!-- Preserve current sort/direction when deleting -->
   <%= button_to "Delete",
-                movie_path(@movie, sort: session[:sort], direction: session[:direction]),
+                movie_path(@movie, sort: @sort, direction: @direction),
                 method: :delete,
                 class: "btn btn-danger",
                 data: { confirm: "Are you sure you want to delete this movie?" } %>
