@@ -2,12 +2,12 @@
 
 <div class="header-container">
   <h1>Add Another Movie</h1>
+
+  <%= link_to "Home",
+              movies_path(sort: session[:sort], direction: session[:direction]),
+              class: "btn btn-primary" %>
 </div>
 
-  <%= render "form", movie: @movie %>
+<%= render "form", movie: @movie %>
 
 <br>
-
-<div class="navigation-links">
-  <%= link_to "Home", movies_path, class: "btn btn-secondary" %>
-</div>

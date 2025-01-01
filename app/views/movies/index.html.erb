@@ -1,38 +1,66 @@
-<p style="color: green; font-size: 1.2em; margin-bottom: 20px; text-align: center;"><%= notice %></p>
+<%= notice.present? ? content_tag(:p, notice, style: "color: green; font-size: 1.2em; margin-bottom: 20px; text-align: center;") : '' %>
 
 <div class="header-container">
-  <h1>Movies</h1>
-  <div class="filter-actions">
-    <div class="sort-container">
-      <label for="sort">Sort by:</label>
-      <select id="sort" onchange="window.location.href=this.value">
-        <option value="<%= movies_path(sort: 'title', direction: 'asc') %>" <%= params[:sort] == 'title' && params[:direction] == 'asc' ? 'selected' : '' %>>Title (A-Z)</option>
-        <option value="<%= movies_path(sort: 'title', direction: 'desc') %>" <%= params[:sort] == 'title' && params[:direction] == 'desc' ? 'selected' : '' %>>Title (Z-A)</option>
-        <option value="<%= movies_path(sort: 'rating', direction: 'asc') %>" <%= params[:sort] == 'rating' && params[:direction] == 'asc' ? 'selected' : '' %>>Rating (G to R)</option>
-        <option value="<%= movies_path(sort: 'rating', direction: 'desc') %>" <%= params[:sort] == 'rating' && params[:direction] == 'desc' ? 'selected' : '' %>>Rating (R to G)</option>
-        <option value="<%= movies_path(sort: 'release_date', direction: 'asc') %>" <%= params[:sort] == 'release_date' && params[:direction] == 'asc' ? 'selected' : '' %>>Release Date (Oldest)</option>
-        <option value="<%= movies_path(sort: 'release_date', direction: 'desc') %>" <%= params[:sort] == 'release_date' && params[:direction] == 'desc' ? 'selected' : '' %>>Release Date (Newest)</option>
-      </select>
-    </div>
+  <div class="header-left">
+    <h1>Movies</h1>
+  </div>
+  <div class="header-right">
     <%= link_to "+", new_movie_path, class: "add-movie-btn" %>
   </div>
 </div>
 
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <%= link_to movie_path(movie), class: "movie-card-link" do %>
-      <div class="movie-card">
-        <div class="movie-info">
-          <h2 title="<%= movie.title %>"><%= movie.title %></h2>
-          <p><strong>Release Date:</strong> <%= movie.release_date.strftime("%b %d, %Y") %></p>
-          
-        </div>
-        <div class="movie-actions">
-          <span class="rating-badge" style="background-color: <%= movie.rating == 'R' ? '#f44336' : (movie.rating == 'PG-13' ? '#FF9800' : '#4CAF50') %>;">
-            <%= movie.rating %>
-          </span>
-        </div>
-      </div>
+<table class="movies-table">
+  <thead>
+    <tr>
+      <!-- Title Column -->
+      <th class="<%= 'highlight-column' if highlight_column?('title') %>">
+        Title
+        <%= link_to sort_arrow('title'),
+            movies_path(sort: 'title', direction: next_sort_direction('title')),
+            class: "sort-button" %>
+      </th>
+      
+      <!-- Rating Column -->
+      <th class="<%= 'highlight-column' if highlight_column?('rating') %>">
+        Rating
+        <%= link_to sort_arrow('rating'),
+                    movies_path(sort: 'rating', direction: next_sort_direction('rating')),
+                    class: "sort-button" %>
+      </th>
+      
+      <!-- Release Date Column -->
+      <th class="<%= 'highlight-column' if highlight_column?('release_date') %>">
+        Release Date
+        <%= link_to sort_arrow('release_date'),
+                    movies_path(sort: 'release_date', direction: next_sort_direction('release_date')),
+                    class: "sort-button" %>
+      </th>
+      
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td class="<%= 'highlight-column' if highlight_column?('title') %>">
+          <%= movie.title %>
+        </td>
+        <td class="<%= 'highlight-column' if highlight_column?('rating') %>">
+          <%= movie.rating %>
+        </td>
+        <td class="<%= 'highlight-column' if highlight_column?('release_date') %>">
+          <%= movie.release_date.strftime("%b %d, %Y") %>
+        </td>
+        <td>
+          <%= link_to "Show", movie_path(movie, sort: session[:sort], direction: session[:direction]),
+                class: "btn btn-primary" %>
+          <%= link_to "Edit", edit_movie_path(movie, sort: session[:sort], direction: session[:direction]),
+                class: "btn btn-secondary" %>
+          <%= link_to "Delete", movie_path(movie, sort: session[:sort], direction: session[:direction]),
+                method: :delete, data: { confirm: "Are you sure?" },
+                class: "btn btn-danger" %>
+        </td>
+      </tr>
     <% end %>
-  <% end %>
-</div>
+  </tbody>
+</table>
