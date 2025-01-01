@@ -49,16 +49,13 @@
           <%= movie.rating %>
         </td>
         <td class="<%= 'highlight-column' if @sort == 'release_date' && @direction.present? %>">
-          <%= movie.release_date.strftime("%b %d, %Y") %>
+          <%= movie.release_date.present? ? movie.release_date.strftime("%b %d, %Y") : 'N/A' %>
         </td>
         <td>
-          <%= link_to "Show", movie_path(movie, sort: @sort, direction: @direction),
+          <%= link_to "Info", movie_path(movie, sort: @sort, direction: @direction),
                 class: "btn btn-primary" %>
           <%= link_to "Edit", edit_movie_path(movie, sort: @sort, direction: @direction),
                 class: "btn btn-secondary" %>
-          <%= link_to "Delete", movie_path(movie, sort: @sort, direction: @direction),
-                method: :delete, data: { confirm: "Are you sure?" },
-                class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>

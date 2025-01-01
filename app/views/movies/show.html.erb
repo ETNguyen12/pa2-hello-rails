@@ -1,4 +1,4 @@
-<% content_for :title, "#{@movie.title}" %>
+<% content_for :title, @movie.title %>
 
 <div class="header-container">
   <h1><%= @movie.title %></h1>
@@ -14,8 +14,17 @@
   <div class="movie-details">
     <h2>Movie Details</h2>
     <p><strong>Title:</strong> <%= @movie.title %></p>
-    <p><strong>Release Date:</strong> <%= @movie.release_date.strftime("%B %d, %Y") %></p>
+    
+    <p><strong>Release Date:</strong>
+      <% if @movie.release_date.present? %>
+        <%= @movie.release_date.strftime("%B %d, %Y") %>
+      <% else %>
+        N/A
+      <% end %>
+    </p>
+    
     <p><strong>Rating:</strong> <%= @movie.rating %></p>
+    
     <p><strong>Description:</strong> <%= @movie.description.presence || "N/A" %></p>
   </div>
 </div>

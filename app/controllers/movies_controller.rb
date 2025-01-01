@@ -40,6 +40,8 @@ class MoviesController < ApplicationController
 
   # POST /movies or /movies.json
   def create
+    @sort = params[:sort]
+    @direction = params[:direction]
     @movie = Movie.new(movie_params)
     respond_to do |format|
       if @movie.save
@@ -54,6 +56,8 @@ class MoviesController < ApplicationController
 
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
+    @sort = params[:sort]
+    @direction = params[:direction]
     respond_to do |format|
       if @movie.update(movie_params)
         format.html { redirect_to movie_path(@movie, sort: params[:sort], direction: params[:direction]), notice: "Movie was successfully updated." }
