@@ -19,11 +19,15 @@ module MoviesHelper
     case session[:direction]
     when 'asc'  then '↑'
     when 'desc' then '↓'
-    else ''
+    else '' 
     end
   end
 
   def highlight_column?(column)
     session[:sort].to_s == column.to_s && session[:direction] != 'none'
+  end
+
+  def clear_sort_link
+    link_to 'Clear Sorting', movies_path(sort: 'none', direction: 'none'), class: 'btn btn-secondary'
   end
 end

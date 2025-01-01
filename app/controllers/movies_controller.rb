@@ -3,22 +3,21 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    # Persist sort state in session only when parameters are present
     if params[:sort].present? && params[:direction].present?
       session[:sort] = params[:sort]
       session[:direction] = params[:direction]
     end
-
-    # Set defaults if no session or parameters exist
-    sort_column = session[:sort] || 'title'
-    sort_direction = session[:direction] || 'asc'
-
-    # Validate direction to prevent unexpected values
-    sort_direction = %w[asc desc].include?(sort_direction) ? sort_direction : 'asc'
-
-    # Order movies by the validated column and direction
-    @movies = Movie.order(sort_column => sort_direction)
-  end
+  
+    sort_column = session[:sort]
+    sort_direction = session[:direction]
+  
+    if sort_column.nil? || sort_direction == 'none'
+      @movies = Movie.all
+    else
+      sort_direction = %w[asc desc].include?(sort_direction) ? sort_direction : 'asc'
+      @movies = Movie.order(sort_column => sort_direction)
+    end
+  end  
 
   # GET /movies/1 or /movies/1.json
   def show

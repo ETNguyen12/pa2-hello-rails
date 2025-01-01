@@ -12,7 +12,6 @@
 <table class="movies-table">
   <thead>
     <tr>
-      <!-- Title Column -->
       <th class="<%= 'highlight-column' if highlight_column?('title') %>">
         Title
         <%= link_to sort_arrow('title'),
@@ -20,7 +19,6 @@
             class: "sort-button" %>
       </th>
       
-      <!-- Rating Column -->
       <th class="<%= 'highlight-column' if highlight_column?('rating') %>">
         Rating
         <%= link_to sort_arrow('rating'),
@@ -28,7 +26,6 @@
                     class: "sort-button" %>
       </th>
       
-      <!-- Release Date Column -->
       <th class="<%= 'highlight-column' if highlight_column?('release_date') %>">
         Release Date
         <%= link_to sort_arrow('release_date'),
