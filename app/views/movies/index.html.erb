@@ -13,23 +13,26 @@
   <thead>
     <tr>
       <th class="<%= 'highlight-column' if @sort == 'title' && @direction.present? %>">
+        <span class="header-text">Title</span>
         <%= link_to movies_path(sort: 'title', direction: next_direction('title')),
                     class: "sort-button" do %>
-          Title <%= sort_indicator('title') %>
+          <%= sort_indicator('title') %>
         <% end %>
       </th>
       
       <th class="<%= 'highlight-column' if @sort == 'rating' && @direction.present? %>">
+        <span class="header-text">Rating</span>
         <%= link_to movies_path(sort: 'rating', direction: next_direction('rating')),
                     class: "sort-button" do %>
-          Rating <%= sort_indicator('rating') %>
+          <%= sort_indicator('rating') %>
         <% end %>
       </th>
       
       <th class="<%= 'highlight-column' if @sort == 'release_date' && @direction.present? %>">
+        <span class="header-text">Release Date</span>
         <%= link_to movies_path(sort: 'release_date', direction: next_direction('release_date')),
                     class: "sort-button" do %>
-          Release Date <%= sort_indicator('release_date') %>
+          <%= sort_indicator('release_date') %>
         <% end %>
       </th>
       

@@ -3,7 +3,9 @@
 <div class="header-container">
   <h1>Add Another Movie</h1>
 
-  <%= link_to "Home", movies_path(sort: @sort, direction: @direction), class: "btn btn-secondary" %>
+  <%= link_to "Cancel", 
+              movies_path(sort: @sort, direction: @direction), 
+              class: "btn btn-danger" %>
 </div>
 
 <%= render "form", movie: @movie %>
